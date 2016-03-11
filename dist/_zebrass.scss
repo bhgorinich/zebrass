@@ -1,58 +1,38 @@
-@mixin make-bar() {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    list-style-image: none;
-    text-align: center;
-    &:before{
-        display: inline-block;
-        content: '';
-        height: 100%;
-        vertical-align: middle;
-    }
-    li, div {
-        display: inline-block;
-        width: auto;
-        padding-left: $gutter/3;
-        padding-right: $gutter/3;
-        vertical-align: middle;
-    }
-}
-@mixin breakpoint-width($min-width, $max-width) {
-    @if is-number($min-width) and is-number($max-width) {
-        @media all and (min-width: convert-to-px($min-width)) and (max-width: convert-to-px($max-width) - 1px) {
-            @content;
-        }
-    } @else if is-number($min-width) {
-        @media all and (min-width: convert-to-px($min-width)) {
-            @content;
-        }
-    } @else if is-number($max-width) {
-        @media all and (max-width: convert-to-px($max-width) - 1px) {
-            @content;
-        }
-    } @else {
-        @error "mixin breakpoint-width: invalid arguments";
-    }
-}
-@mixin breakpoint-width-greater-or-equal($width) {
-    @if is-number($width) {
-        @media all and (min-width: convert-to-px($width)) {
-            @content;
-        }
-    } @else {
-        @error "mixin breakpoint-width-greater-or-equal: invalid width";
-    }
-}
-@mixin breakpoint-width-less($width) {
-    @if is-number($width) {
-        @media all and (max-width: convert-to-px($width) - 1px) {
-            @content;
-        }
-    } @else {
-        @error "mixin breakpoint-width-less: invalid width";
-    }
-}
+
+$gutter: 24px !default;
+
+
+$font-family: Verdana, sans-serif !default;
+$font-family-condensed: Tahoma, sans-serif !default;
+$default-line-height: 1.42857143; // 14px/20px
+
+$theme-light-color-1: #ffffff !default;
+$theme-light-color-2: #fafafa !default;
+$theme-light-color-3: #f5f5f5 !default;
+$theme-light-color-4: #e0e0e0 !default;
+
+$theme-dark-color-1: #424242 !default;
+$theme-dark-color-2: #303030 !default;
+$theme-dark-color-3: #212121 !default;
+$theme-dark-color-4: #000000 !default;
+
+
+
+
+// Pink
+$primary_color_extra_light: #F8BBD0; // 100
+$primary_color_light: #F48FB1;       // 200
+$primary_color: #E91E63;             // 500
+$primary_color_medium: #C2185B;      // 700
+$primary_color_dark: #880E4F;        // 900
+
+// Indigo
+$accent_color_extra_light: #C5CAE9; // 100
+$accent_color_light: #9FA8DA;       // 200
+$accent_color: #3F51B5;             // 500
+$accent_color_medium: #303F9F;      // 700
+$accent_color_dark: #1A237E;        // 900
+
 @function is-number($value) {
     @return type-of($value) == 'number';
 }
@@ -100,135 +80,39 @@
         @error "function length-setter: invalid arguments";
     }
 }
-@mixin make-grid($is-centered: false, $padding-grid: $gutter, $gutter-cell: $gutter/2, $max-width: null) {
-    position: relative;
-    overflow: hidden;
-    width: auto;
-    margin-right: auto;
-    margin-left: auto;
-
-    @if(is-number($max-width)){
-        $max-width: convert-to-px($max-width);
-        max-width: length-setter($max-width - $padding-grid * 2);
-    }
-
-    @if(is-number($padding-grid)){
-        $padding-grid: convert-to-px($padding-grid);
-    }
-    @else{
-        @error "$padding-grid must be a number";
-    }
-
-    @if(is-number($gutter-cell)){
-        $gutter-cell: convert-to-px($gutter-cell);
-    }
-    @else{
-        @error "$gutter-cell must be a number";
-    }
-
-    @if($padding-grid < $gutter-cell/2){
-        $padding-grid: $gutter-cell/2;
-    }
-
-    padding: 0 $padding-grid;
-
-    @if($is-centered){
-        @each $min-breakpoint-width, $max-breakpoint-width in
-                        (null, 480px),
-                        (480px, 600px),
-                        (600px, 768px),
-                        (768px, 840px),
-                        (840px, 960px),
-                        (960px, 992px),
-                        (992px, 1280px),
-                        (1280px, 1440px),
-                        (1440px, 1600px){
-            @include breakpoint-width($min-breakpoint-width, $max-breakpoint-width){
-                width: if(is-number($min-breakpoint-width), $min-breakpoint-width - $padding-grid * 2, auto);
-            }
+@mixin breakpoint-width($min-width, $max-width) {
+    @if is-number($min-width) and is-number($max-width) {
+        @media all and (min-width: convert-to-px($min-width)) and (max-width: convert-to-px($max-width) - 1px) {
+            @content;
         }
-        @if(has-unit($max-width, "px") and $max-width > 1600px){
-            @include breakpoint-width(1600px, $max-width){
-                width: 1600px - $padding-grid * 2;
-            }
-            @include breakpoint-width-greater-or-equal($max-width){
-                width: $max-width - $padding-grid * 2;
-            }
+    } @else if is-number($min-width) {
+        @media all and (min-width: convert-to-px($min-width)) {
+            @content;
         }
-        @else{
-            @include breakpoint-width-greater-or-equal(1600px){
-                width: 1600px - $padding-grid * 2;
-            }
+    } @else if is-number($max-width) {
+        @media all and (max-width: convert-to-px($max-width) - 1px) {
+            @content;
         }
-    }
-
-    .block {
-        @include make-block($gutter-cell);
+    } @else {
+        @error "mixin breakpoint-width: invalid arguments";
     }
 }
-@mixin make-block($gutter-cell: $gutter/2) {
-    overflow: hidden;
-    clear: both;
-    width: auto;
-    padding: 0;
-    border: none;
-
-    @if(is-number($gutter-cell)){
-        $gutter-cell: convert-to-px($gutter-cell);
-    }
-    @else{
-        @error "$gutter-cell must be a number";
-    }
-
-    margin-right: - $gutter-cell/2;
-    margin-left: - $gutter-cell/2;
-
-    @for $j from 1 through 5 {
-        .cell-#{$j} {
-            @include make-cell(1/$j, $gutter-cell);
+@mixin breakpoint-width-greater-or-equal($width) {
+    @if is-number($width) {
+        @media all and (min-width: convert-to-px($width)) {
+            @content;
         }
+    } @else {
+        @error "mixin breakpoint-width-greater-or-equal: invalid width";
     }
 }
-@mixin make-cell($length: 1, $gutter-cell: $gutter/2, $min-lenght: null, $max-length: null) {
-    @include make-float(left);
-    @include box-sizing();
-    border: none;
-    outline: none;
-
-    @if(is-number($gutter-cell)){
-        $gutter-cell: convert-to-px($gutter-cell);
-    }
-    @else{
-        @error "$gutter-cell must be a number";
-    }
-
-    padding-left: $gutter-cell/2;
-    padding-right: $gutter-cell/2;
-
-    // To be sure that the internal width of a specified length, we need to add padding($gutter), because the 'box-sizing' is used
-    width: length-setter($length) + if(has-unit($length, 'px'), $gutter-cell, 0);
-    @if($min-lenght){
-        min-width: length-setter($min-lenght) + if(has-unit($min-lenght, 'px'), $gutter-cell, 0);
-    }
-    @if($max-length){
-        max-width: length-setter($max-length) + if(has-unit($max-length, 'px'), $gutter-cell, 0);
-    }
-}
-@mixin make-jumbotron($img-url: null, $is-fixed: false){
-    display: block;
-    position: relative;
-    width: auto;
-
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-
-    @if($is-fixed){
-        background-attachment: fixed;
-    }
-
-    @if(is-string($img-url)){
-        background-image: url($img-url);
+@mixin breakpoint-width-less($width) {
+    @if is-number($width) {
+        @media all and (max-width: convert-to-px($width) - 1px) {
+            @content;
+        }
+    } @else {
+        @error "mixin breakpoint-width-less: invalid width";
     }
 }
 @mixin typ-size($size-type: 'body') {
@@ -391,37 +275,154 @@
     -o-transform: $value;
     transform: $value;
 }
+@mixin make-grid($is-centered: false, $padding-grid: $gutter, $gutter-cell: $gutter/2, $max-width: null) {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
 
-$gutter: 24px !default;
+    @if(is-number($max-width)){
+        $max-width: convert-to-px($max-width);
+        max-width: length-setter($max-width - $padding-grid * 2);
+    }
 
+    @if(is-number($padding-grid)){
+        $padding-grid: convert-to-px($padding-grid);
+    }
+    @else{
+        @error "$padding-grid must be a number";
+    }
 
-$font-family: Verdana, sans-serif !default;
-$font-family-condensed: Tahoma, sans-serif !default;
-$default-line-height: 1.42857143; // 14px/20px
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
 
-$theme-light-color-1: #ffffff !default;
-$theme-light-color-2: #fafafa !default;
-$theme-light-color-3: #f5f5f5 !default;
-$theme-light-color-4: #e0e0e0 !default;
+    @if($padding-grid < $gutter-cell/2){
+        $padding-grid: $gutter-cell/2;
+    }
 
-$theme-dark-color-1: #424242 !default;
-$theme-dark-color-2: #303030 !default;
-$theme-dark-color-3: #212121 !default;
-$theme-dark-color-4: #000000 !default;
+    padding: 0 $padding-grid;
 
+    @if($is-centered){
+        @each $min-breakpoint-width, $max-breakpoint-width in
+                        (null, 480px),
+                        (480px, 600px),
+                        (600px, 768px),
+                        (768px, 840px),
+                        (840px, 960px),
+                        (960px, 992px),
+                        (992px, 1280px),
+                        (1280px, 1440px),
+                        (1440px, 1600px){
+            @include breakpoint-width($min-breakpoint-width, $max-breakpoint-width){
+                width: if(is-number($min-breakpoint-width), $min-breakpoint-width - $padding-grid * 2, auto);
+            }
+        }
+        @if(has-unit($max-width, "px") and $max-width > 1600px){
+            @include breakpoint-width(1600px, $max-width){
+                width: 1600px - $padding-grid * 2;
+            }
+            @include breakpoint-width-greater-or-equal($max-width){
+                width: $max-width - $padding-grid * 2;
+            }
+        }
+        @else{
+            @include breakpoint-width-greater-or-equal(1600px){
+                width: 1600px - $padding-grid * 2;
+            }
+        }
+    }
 
+    .block {
+        @include make-block($gutter-cell);
+    }
+}
+@mixin make-block($gutter-cell: $gutter/2) {
+    overflow: hidden;
+    clear: both;
+    width: auto;
+    padding: 0;
+    border: none;
 
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
 
-// Pink
-$primary_color_extra_light: #F8BBD0; // 100
-$primary_color_light: #F48FB1;       // 200
-$primary_color: #E91E63;             // 500
-$primary_color_medium: #C2185B;      // 700
-$primary_color_dark: #880E4F;        // 900
+    margin-right: - $gutter-cell/2;
+    margin-left: - $gutter-cell/2;
 
-// Indigo
-$accent_color_extra_light: #C5CAE9; // 100
-$accent_color_light: #9FA8DA;       // 200
-$accent_color: #3F51B5;             // 500
-$accent_color_medium: #303F9F;      // 700
-$accent_color_dark: #1A237E;        // 900
+    @for $j from 1 through 5 {
+        .cell-#{$j} {
+            @include make-cell(1/$j, $gutter-cell);
+        }
+    }
+}
+@mixin make-cell($length: 1, $gutter-cell: $gutter/2, $min-lenght: null, $max-length: null) {
+    @include make-float(left);
+    @include box-sizing();
+    border: none;
+    outline: none;
+
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
+
+    padding-left: $gutter-cell/2;
+    padding-right: $gutter-cell/2;
+
+    // To be sure that the internal width of a specified length, we need to add padding($gutter), because the 'box-sizing' is used
+    width: length-setter($length) + if(has-unit($length, 'px'), $gutter-cell, 0);
+    @if($min-lenght){
+        min-width: length-setter($min-lenght) + if(has-unit($min-lenght, 'px'), $gutter-cell, 0);
+    }
+    @if($max-length){
+        max-width: length-setter($max-length) + if(has-unit($max-length, 'px'), $gutter-cell, 0);
+    }
+}
+@mixin make-jumbotron($img-url: null, $is-fixed: false){
+    display: block;
+    position: relative;
+    width: auto;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    @if($is-fixed){
+        background-attachment: fixed;
+    }
+
+    @if(is-string($img-url)){
+        background-image: url($img-url);
+    }
+}
+@mixin make-bar() {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    list-style-image: none;
+    text-align: center;
+    &:before{
+        display: inline-block;
+        content: '';
+        height: 100%;
+        vertical-align: middle;
+    }
+    li, div {
+        display: inline-block;
+        width: auto;
+        padding-left: $gutter/3;
+        padding-right: $gutter/3;
+        vertical-align: middle;
+    }
+}
