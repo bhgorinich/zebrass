@@ -76,149 +76,6 @@ $accent_color_dark: #1A237E;        // 900
         @error "function length-setter: invalid arguments";
     }
 }
-
-html {
-    height: 100%;
-    font-size: 100%;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-font-smoothing: antialiased;
-}
-body {
-    position: relative;
-    min-height: 100%;
-    margin: 0;
-    font-family: $font-family;
-    line-height: $default-line-height;
-    color: $theme-dark-color-4;
-    background-color: $theme-light-color-1;
-}
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-html, .light_material{
-    h1, h2, h3, h4, h5, h6, p, span {
-        color: $theme-dark-color-4;
-        &, &.primary_text{
-            opacity: .87;
-            filter: Alpha(Opacity=87); /* support: IE8 */
-        }
-        &.secondary_text{
-            opacity: .54;
-            filter: Alpha(Opacity=54); /* support: IE8 */
-        }
-        &.hint_text{
-            opacity: .38;
-            filter: Alpha(Opacity=38); /* support: IE8 */
-        }
-    }
-}
-
-.dark_material{
-    h1, h2, h3, h4, h5, h6, p, span {
-        color: $theme-light-color-1;
-        &, &.primary_text{
-            opacity: 1;
-            filter: Alpha(Opacity=100); /* support: IE8 */
-        }
-        &.secondary_text{
-            opacity: .7;
-            filter: Alpha(Opacity=70); /* support: IE8 */
-        }
-        &.hint_text{
-            opacity: .3;
-            filter: Alpha(Opacity=30); /* support: IE8 */
-        }
-    }
-}
-
-
-h1{
-    @include typ-size('display_3');
-    @include typ-weight('regular');
-    margin: 0;
-}
-h2{
-    @include typ-size('display_2');
-    @include typ-weight('regular');
-    margin: 0;
-}
-h3{
-    @include typ-size('display_1');
-    @include typ-weight('regular');
-    margin: 0;
-}
-h4{
-    @include typ-size('headline');
-    @include typ-weight('regular');
-    margin: 0;
-}
-h5{
-    @include typ-size('title');
-    @include typ-weight('medium');
-    margin: 0;
-}
-h6{
-    @include typ-size('subtitle');
-    @include typ-weight('regular');
-    @extend .secondary_text;
-    margin: 0;
-}
-p, span{
-    @include typ-size('body');
-    @include typ-weight('regular');
-    margin: 0;
-}
-
-
-
-@each $suffix, $value in ('-1', $gutter),
-        ('-2', $gutter*2),
-        ('-1-2', $gutter/2),
-        ('-1-3', $gutter/3) {
-    .mrg-top#{$suffix} {
-        margin-top: $value !important;
-    }
-    .mrg-rgt#{$suffix} {
-        margin-right: $value !important;
-    }
-    .mrg-btm#{$suffix} {
-        margin-bottom: $value !important;
-    }
-    .mrg-lft#{$suffix} {
-        margin-left: $value !important;
-    }
-}
-
-
-.text-left{
-    text-align: left;
-}
-.text-centered{
-    text-align: center;
-}
-.text-right{
-    text-align: right;
-}
-.float-left{
-    @include make-float(left, true);
-}
-.float-right{
-    @include make-float(right, true);
-}
-
-.hidden, [hidden]{
-    display: none !important;
-}
-input, textarea{
-    @include box-sizing();
-    @include border-radius();
-    @include shadow-border();
-    @include typ-size('subtitle');
-    font-family: $font-family;
-    padding: $gutter/3;
-}
 @mixin breakpoint-width($min-width, $max-width) {
     @if is-number($min-width) and is-number($max-width) {
         @media all and (min-width: convert-to-px($min-width)) and (max-width: convert-to-px($max-width) - 1px) {
@@ -565,3 +422,133 @@ input, textarea{
         vertical-align: middle;
     }
 }
+
+html {
+    height: 100%;
+    font-size: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-font-smoothing: antialiased;
+}
+body {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    font-family: $font-family;
+    line-height: $default-line-height;
+    color: $theme-dark-color-4;
+    background-color: $theme-light-color-1;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+html, .light_material{
+    h1, h2, h3, h4, h5, h6, p, span {
+        color: $theme-dark-color-4;
+        &, &.primary_text{
+            opacity: .87;
+            filter: Alpha(Opacity=87); /* support: IE8 */
+        }
+        &.secondary_text{
+            opacity: .54;
+            filter: Alpha(Opacity=54); /* support: IE8 */
+        }
+        &.hint_text{
+            opacity: .38;
+            filter: Alpha(Opacity=38); /* support: IE8 */
+        }
+    }
+}
+
+.dark_material{
+    h1, h2, h3, h4, h5, h6, p, span {
+        color: $theme-light-color-1;
+        &, &.primary_text{
+            opacity: 1;
+            filter: Alpha(Opacity=100); /* support: IE8 */
+        }
+        &.secondary_text{
+            opacity: .7;
+            filter: Alpha(Opacity=70); /* support: IE8 */
+        }
+        &.hint_text{
+            opacity: .3;
+            filter: Alpha(Opacity=30); /* support: IE8 */
+        }
+    }
+}
+
+
+h1{
+    @include typ-size('display_3');
+    @include typ-weight('regular');
+    margin: 0;
+}
+h2{
+    @include typ-size('display_2');
+    @include typ-weight('regular');
+    margin: 0;
+}
+h3{
+    @include typ-size('display_1');
+    @include typ-weight('regular');
+    margin: 0;
+}
+h4{
+    @include typ-size('headline');
+    @include typ-weight('regular');
+    margin: 0;
+}
+h5{
+    @include typ-size('title');
+    @include typ-weight('medium');
+    margin: 0;
+}
+h6{
+    @include typ-size('subtitle');
+    @include typ-weight('regular');
+    @extend .secondary_text;
+    margin: 0;
+}
+p, span{
+    @include typ-size('body');
+    @include typ-weight('regular');
+    margin: 0;
+}
+
+
+
+@each $suffix, $value in ('-1', $gutter),
+        ('-2', $gutter*2),
+        ('-1-2', $gutter/2),
+        ('-1-3', $gutter/3) {
+    .mrg-top#{$suffix} {
+        margin-top: $value !important;
+    }
+    .mrg-rgt#{$suffix} {
+        margin-right: $value !important;
+    }
+    .mrg-btm#{$suffix} {
+        margin-bottom: $value !important;
+    }
+    .mrg-lft#{$suffix} {
+        margin-left: $value !important;
+    }
+}
+
+
+.text-left{
+    text-align: left;
+}
+.text-centered{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+
+.hidden, [hidden]{
+    display: none !important;
+}
+

@@ -14,13 +14,13 @@ gulp.task('scss', function(){
     gulp.src([
             'src/_variables.scss',
             'src/_functions.scss',
-            'src/_override.scss',
             'src/_breakpoint.scss',
             'src/_typography.scss',
             'src/_utils.scss',
             'src/_grid.scss',
             'src/_jumbotron.scss',
-            'src/_bar.scss'])
+            'src/_bar.scss',
+            'src/_override.scss'])
         .pipe(concat('_zebrass.scss'))
         .pipe(gulp.dest('test/'))
         .pipe(connect.reload());
@@ -51,13 +51,13 @@ gulp.task('dist', function(){
     gulp.src([
             'src/_variables.scss',
             'src/_functions.scss',
-            'src/_override.scss',
             'src/_breakpoint.scss',
             'src/_typography.scss',
             'src/_utils.scss',
             'src/_grid.scss',
             'src/_jumbotron.scss',
-            'src/_bar.scss'])
+            'src/_bar.scss',
+            'src/_override.scss'])
         .pipe(concat('_zebrass.scss'))
         .pipe(gulp.dest('dist/'));
 });

@@ -123,21 +123,8 @@ p, span{
 .text-right{
     text-align: right;
 }
-.float-left{
-    @include make-float(left, true);
-}
-.float-right{
-    @include make-float(right, true);
-}
 
 .hidden, [hidden]{
     display: none !important;
 }
-input, textarea{
-    @include box-sizing();
-    @include border-radius();
-    @include shadow-border();
-    @include typ-size('subtitle');
-    font-family: $font-family;
-    padding: $gutter/3;
-}
+
