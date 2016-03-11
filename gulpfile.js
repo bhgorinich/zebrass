@@ -14,6 +14,7 @@ gulp.task('scss', function(){
     gulp.src([
             'src/_variables.scss',
             'src/_functions.scss',
+            'src/_override.scss',
             'src/_breakpoint.scss',
             'src/_typography.scss',
             'src/_utils.scss',
@@ -50,6 +51,7 @@ gulp.task('dist', function(){
     gulp.src([
             'src/_variables.scss',
             'src/_functions.scss',
+            'src/_override.scss',
             'src/_breakpoint.scss',
             'src/_typography.scss',
             'src/_utils.scss',
