@@ -11,9 +11,18 @@ gulp.task('connect', function() {
 });
 
 gulp.task('scss', function(){
-    gulp.src(['src/**/*.scss'])
+    gulp.src([
+            'src/_variables.scss',
+            'src/_functions.scss',
+            'src/_breakpoint.scss',
+            'src/_typography.scss',
+            'src/_utils.scss',
+            'src/_grid.scss',
+            'src/_jumbotron.scss',
+            'src/_bar.scss'])
         .pipe(concat('_zebrass.scss'))
-        .pipe(gulp.dest('test/'));
+        .pipe(gulp.dest('test/'))
+        .pipe(connect.reload());
 });
 
 gulp.task('html', function(){
@@ -30,7 +39,7 @@ gulp.task('watch', function () {
     gulp.watch(['test/**/*'], ['html']);
 });
 
-gulp.task('test', ['scss', 'html', 'watch', 'connect']);
+gulp.task('test', ['connect', 'scss', 'html', 'watch']);
 
 
 
@@ -38,7 +47,15 @@ gulp.task('test', ['scss', 'html', 'watch', 'connect']);
 
 
 gulp.task('dist', function(){
-    gulp.src(['src/**/*.scss'])
+    gulp.src([
+            'src/_variables.scss',
+            'src/_functions.scss',
+            'src/_breakpoint.scss',
+            'src/_typography.scss',
+            'src/_utils.scss',
+            'src/_grid.scss',
+            'src/_jumbotron.scss',
+            'src/_bar.scss'])
         .pipe(concat('_zebrass.scss'))
         .pipe(gulp.dest('dist/'));
 });
