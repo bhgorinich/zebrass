@@ -1,0 +1,68 @@
+@mixin typ-size($size-type: 'body') {
+    @if $size-type == 'display_5' {
+        font-size: 112px;
+        line-height: 1.1;
+
+    } @else if $size-type == 'display_4' {
+        font-size: 72px;
+        line-height: 1.1;
+
+    } @else if $size-type == 'display_3' {
+        font-size: 56px;
+        line-height: 1.1;
+
+    } @else if $size-type == 'display_2' {
+        font-size: 45px;
+        line-height: 1.1;
+
+    } @else if $size-type == 'display_1' {
+        font-size: 34px;
+        line-height: 1.2;
+
+    } @else if $size-type == 'headline' {
+        font-size: 24px;
+        line-height: 32px;
+
+    } @else if $size-type == 'title' {
+        font-size: 20px;
+        line-height: 28px;
+
+    } @else if $size-type == 'subtitle' {
+        font-size: 16px;
+        line-height: 24px;
+
+    } @else if $size-type == 'body' {
+        font-size: 15px;
+        line-height: 22px;
+
+    } @else if $size-type == 'caption' {
+        font-size: 10px;
+        line-height: 20px;
+
+    } @else {
+        @error "mixin typ-size: invalid argument size-type";
+    }
+}
+
+
+@mixin typ-weight($weight-type: 'regular') {
+    @if is-number($weight-type){
+        font-weight: $weight-type;
+    } @else {
+        @if $weight-type == 'light' {
+            font-weight: 300;
+        } @else if $weight-type == 'regular' {
+            font-weight: 400;
+        } @else if $weight-type == 'medium' {
+            font-weight: 600;
+        } @else {
+            @error "mixin typ-weight: invalid argument $weight-type";
+        }
+    }
+}
+
+
+
+@mixin typ-shadow(){
+    text-shadow: 1px 1px 2px transparentize($theme-dark-color-4, 0.5);
+}

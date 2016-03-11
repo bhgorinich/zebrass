@@ -1,0 +1,47 @@
+@function is-number($value) {
+    @return type-of($value) == 'number';
+}
+
+@function is-string($value) {
+    @return type-of($value) == 'string';
+}
+
+@function strip-unit($value) {
+    @if is-number($value) {
+        @if unitless($value) {
+            @return $value;
+        }
+        @else {
+            @return $value / ($value * 0 + 1);
+        }
+    }
+    @else {
+        @error 'function strip-unit: argument is not a number';
+    }
+}
+
+@function has-unit($value, $unit) {
+    @if(is-number($value)){
+        @return index($unit, unit($value)) != null;
+    }
+    @else{
+        @return false;
+    }
+}
+
+@function convert-to-px($value) {
+    @return strip-unit($value) * 1px;
+}
+
+
+@function length-setter($length) {
+    @if(is-number($length)) {
+        @if(unitless($length)) {
+            @return 100% * $length;
+        } @else {
+            @return $length;
+        }
+    } @else {
+        @error "function length-setter: invalid arguments";
+    }
+}

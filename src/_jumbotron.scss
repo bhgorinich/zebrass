@@ -1,0 +1,17 @@
+@mixin make-jumbotron($img-url: null, $is-fixed: false){
+    display: block;
+    position: relative;
+    width: auto;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    @if($is-fixed){
+        background-attachment: fixed;
+    }
+
+    @if(is-string($img-url)){
+        background-image: url($img-url);
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "zebrass",
+  "dependencies": [],
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-connect": "~2",
+    "gulp-sass": "latest",
+    "gulp-concat": "latest"
+  }
+}

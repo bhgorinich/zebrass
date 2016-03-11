@@ -1,0 +1,28 @@
+{
+  "name": "zebrass",
+  "description": "Lightweight sass library",
+  "main": "dist/zebrass.scss",
+  "devDependencies": {
+
+  },
+  "keywords": [
+    "sass",
+    "mixin"
+  ],
+  "authors": [
+    "bhgorinich (bhgorinich@gmail.com)"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bhgorinich/zebrass.git"
+  },
+  "version": "0.1.0"
+}

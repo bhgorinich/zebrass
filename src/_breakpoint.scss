@@ -1,0 +1,35 @@
+@mixin breakpoint-width($min-width, $max-width) {
+    @if is-number($min-width) and is-number($max-width) {
+        @media all and (min-width: convert-to-px($min-width)) and (max-width: convert-to-px($max-width) - 1px) {
+            @content;
+        }
+    } @else if is-number($min-width) {
+        @media all and (min-width: convert-to-px($min-width)) {
+            @content;
+        }
+    } @else if is-number($max-width) {
+        @media all and (max-width: convert-to-px($max-width) - 1px) {
+            @content;
+        }
+    } @else {
+        @error "mixin breakpoint-width: invalid arguments";
+    }
+}
+@mixin breakpoint-width-greater-or-equal($width) {
+    @if is-number($width) {
+        @media all and (min-width: convert-to-px($width)) {
+            @content;
+        }
+    } @else {
+        @error "mixin breakpoint-width-greater-or-equal: invalid width";
+    }
+}
+@mixin breakpoint-width-less($width) {
+    @if is-number($width) {
+        @media all and (max-width: convert-to-px($width) - 1px) {
+            @content;
+        }
+    } @else {
+        @error "mixin breakpoint-width-less: invalid width";
+    }
+}

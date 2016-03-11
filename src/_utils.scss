@@ -1,0 +1,92 @@
+@mixin make-hidden() {
+    display: none !important;
+}
+
+
+
+@mixin make-float($side: left, $is-important: false) {
+    @if($is-important){
+        float: $side !important;
+    } @else {
+        float: $side;
+    }
+}
+
+
+
+
+@mixin shadow-animate() {
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@mixin shadow($elevation : 1) {
+    @if $elevation == 1 {
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+
+    } @else if $elevation == 2 {
+        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+
+    } @else if $elevation == 3 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.3);
+
+    } @else if $elevation == 4 {
+        box-shadow: 0 11px 7px 0 rgba(0, 0, 0, 0.19), 0 13px 25px 0 rgba(0, 0, 0, 0.3);
+
+    } @else if $elevation == 5 {
+        box-shadow: 0 14px 12px 0 rgba(0, 0, 0, 0.17), 0 20px 40px 0 rgba(0, 0, 0, 0.3);
+
+    } @else if $elevation == 6 {
+        box-shadow: 0 17px 17px 0 rgba(0, 0, 0, 0.15), 0 27px 55px 0 rgba(0, 0, 0, 0.3);
+
+    } @else {
+        @error "mixin shadow: invalid argument elevation";
+    }
+}
+@mixin shadow-border($width: 1px, $type: solid, $side: null) {
+    @if(not $side){
+        border: $width $type rgba(34, 34, 34, 0.2);
+    }
+    @else{
+        border-#{$side}: $width $type rgba(34, 34, 34, 0.2);
+    }
+}
+
+
+
+
+
+
+@mixin border-radius($value : 2px) {
+    @if is-number($value) {
+        border-top-left-radius: $value;
+        border-top-right-radius: $value;
+        border-bottom-left-radius: $value;
+        border-bottom-right-radius: $value;
+    }
+    @else {
+        @error "mixin border-radius: invalid argument";
+    }
+}
+
+
+@mixin box-sizing() {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+
+
+@mixin make-transition($value){
+    -webkit-transition: $value;
+    -moz-transition: $value;
+    -o-transition: $value;
+    -ms-transition: $value;
+}
+
+@mixin make-transform($value){
+    -moz-transform: $value;
+    -ms-transform: $value;
+    -webkit-transform: $value;
+    -o-transform: $value;
+    transform: $value;
+}

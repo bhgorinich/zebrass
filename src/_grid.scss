@@ -1,0 +1,114 @@
+@mixin make-grid($is-centered: false, $padding-grid: $gutter, $gutter-cell: $gutter/2, $max-width: null) {
+    position: relative;
+    overflow: hidden;
+    width: auto;
+    margin-right: auto;
+    margin-left: auto;
+
+    @if(is-number($max-width)){
+        $max-width: convert-to-px($max-width);
+        max-width: length-setter($max-width - $padding-grid * 2);
+    }
+
+    @if(is-number($padding-grid)){
+        $padding-grid: convert-to-px($padding-grid);
+    }
+    @else{
+        @error "$padding-grid must be a number";
+    }
+
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
+
+    @if($padding-grid < $gutter-cell/2){
+        $padding-grid: $gutter-cell/2;
+    }
+
+    padding: 0 $padding-grid;
+
+    @if($is-centered){
+        @each $min-breakpoint-width, $max-breakpoint-width in
+                        (null, 480px),
+                        (480px, 600px),
+                        (600px, 768px),
+                        (768px, 840px),
+                        (840px, 960px),
+                        (960px, 992px),
+                        (992px, 1280px),
+                        (1280px, 1440px),
+                        (1440px, 1600px){
+            @include breakpoint-width($min-breakpoint-width, $max-breakpoint-width){
+                width: if(is-number($min-breakpoint-width), $min-breakpoint-width - $padding-grid * 2, auto);
+            }
+        }
+        @if(has-unit($max-width, "px") and $max-width > 1600px){
+            @include breakpoint-width(1600px, $max-width){
+                width: 1600px - $padding-grid * 2;
+            }
+            @include breakpoint-width-greater-or-equal($max-width){
+                width: $max-width - $padding-grid * 2;
+            }
+        }
+        @else{
+            @include breakpoint-width-greater-or-equal(1600px){
+                width: 1600px - $padding-grid * 2;
+            }
+        }
+    }
+
+    .block {
+        @include make-block($gutter-cell);
+    }
+}
+@mixin make-block($gutter-cell: $gutter/2) {
+    overflow: hidden;
+    clear: both;
+    width: auto;
+    padding: 0;
+    border: none;
+
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
+
+    margin-right: - $gutter-cell/2;
+    margin-left: - $gutter-cell/2;
+
+    @for $j from 1 through 5 {
+        .cell-#{$j} {
+            @include make-cell(1/$j, $gutter-cell);
+        }
+    }
+}
+@mixin make-cell($length: 1, $gutter-cell: $gutter/2, $min-lenght: null, $max-length: null) {
+    @include make-float(left);
+    @include box-sizing();
+    border: none;
+    outline: none;
+
+    @if(is-number($gutter-cell)){
+        $gutter-cell: convert-to-px($gutter-cell);
+    }
+    @else{
+        @error "$gutter-cell must be a number";
+    }
+
+    padding-left: $gutter-cell/2;
+    padding-right: $gutter-cell/2;
+
+    // To be sure that the internal width of a specified length, we need to add padding($gutter), because the 'box-sizing' is used
+    width: length-setter($length) + if(has-unit($length, 'px'), $gutter-cell, 0);
+    @if($min-lenght){
+        min-width: length-setter($min-lenght) + if(has-unit($min-lenght, 'px'), $gutter-cell, 0);
+    }
+    @if($max-length){
+        max-width: length-setter($max-length) + if(has-unit($max-length, 'px'), $gutter-cell, 0);
+    }
+}
